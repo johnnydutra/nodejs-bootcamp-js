@@ -6,12 +6,15 @@ exports.getAllTours = async (req, res) => {
   //   .where('difficulty').equals('easy');
 
   try {
-    // Build query
+    // Build query - filtering
     const queryObj = { ...req.query };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
-    const query = Tour.find(queryObj);
+    // Build query - advanced filtering
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|le)\b/g, (match) => `$${match}`);
+    const query = Tour.find(JSON.parse(queryStr));
 
     // Execute query
     const tours = await query;
