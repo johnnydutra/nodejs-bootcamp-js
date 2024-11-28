@@ -15,16 +15,8 @@ exports.createReview = catchAsync(async (req, res, next) => {
 
 exports.getReview = catchAsync(async (req, res, next) => {
   const review = await Review.findById(req.params.id);
-  // .populate({
-  //   path: 'user',
-  //   select: '-__v -passwordChangedAt',
-  // })
-  // .populate({
-  //   path: 'tour',
-  //   select: '-__v -passwordChangedAt',
-  // });
 
-  if (!review) return next(new AppError('No tour found with that ID', 404));
+  if (!review) return next(new AppError('No review found with that ID', 404));
 
   res.status(200).json({
     status: 'success',
