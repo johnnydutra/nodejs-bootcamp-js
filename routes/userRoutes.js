@@ -8,12 +8,15 @@ const {
   updateUser,
 } = require('../controllers/userController');
 
-const { login, signup } = require('../controllers/authController');
+const { login, signup, forgotPassword, resetPassword } = require('../controllers/authController');
 
 const router = express.Router();
 
 router.post('/signup', signup);
 router.post('/login', login);
+
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password');
 
 router.route('/').get(getAllUsers).post(createUser);
 
