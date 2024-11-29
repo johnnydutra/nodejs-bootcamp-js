@@ -10,6 +10,9 @@ router
   .post(authController.protect, authController.restrictTo('user'), reviewController.createReview)
   .get(reviewController.getAllReviews);
 
-router.route('/:id').get(authController.protect, reviewController.getReview);
+router
+  .route('/:id')
+  .get(authController.protect, reviewController.getReview)
+  .delete(reviewController.deleteReview);
 
 module.exports = router;
