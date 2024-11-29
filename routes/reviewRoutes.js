@@ -3,12 +3,12 @@ const express = require('express');
 const authController = require('../controllers/authController');
 const reviewController = require('./../controllers/reviewController');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router
   .route('/')
   .post(authController.protect, authController.restrictTo('user'), reviewController.createReview)
-  .get(authController.protect, reviewController.getAllReviews);
+  .get(reviewController.getAllReviews);
 
 router.route('/:id').get(authController.protect, reviewController.getReview);
 
